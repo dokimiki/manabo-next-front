@@ -1,18 +1,40 @@
 {
-  "editor.formatOnSave": true,
-  "cSpell.words": [
-    "aspida",
-    "bigserial",
-    "consola",
-    "fontsource",
-    "Iconify",
-    "manabo",
-    "notistack",
-    "noto",
-    "ohash",
-    "Parens",
-    "supabase",
-    "tailwindcss",
-    "unstorage"
-  ]
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "cSpell.words": [
+        "aspida",
+        "bigserial",
+        "consola",
+        "fontsource",
+        "Iconify",
+        "manabo",
+        "notistack",
+        "noto",
+        "ohash",
+        "Parens",
+        "supabase",
+        "tailwindcss",
+        "unstorage"
+    ],
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "files.insertFinalNewline": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.openRepositoryInParentFolders": "always",
+    "prettier.useEditorConfig": false
 }
