@@ -33,6 +33,14 @@
     bun i
     ```
 
+## 開発に使うコマンド集
+
+- 開発サーバーの起動
+
+    ```bash
+    bun run dev
+    ```
+
 ## 導入されているライブラリ
 
 - [Next.js](https://nextjs.org)
