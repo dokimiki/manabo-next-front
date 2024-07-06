@@ -1,0 +1,36 @@
+{
+  "recommendations": [
+    // for JavaScript, TypeScript
+    "mgmcdermott.vscode-language-babel",
+    "kisstkondoros.vscode-codemetrics",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+
+    // for npm
+    "christian-kohler.npm-intellisense",
+
+    // for React
+    "msjsdiag.vscode-react-native",
+
+    // for scss
+    "sibiraj-s.vscode-scss-formatter",
+    "mrmlnc.vscode-scss",
+
+    // for swagger
+    "Arjun.swagger-viewer",
+
+    // common extensions
+    "christian-kohler.path-intellisense",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "VisualStudioExptTeam.intellicode-api-usage-examples",
+    "wayou.vscode-todo-highlight",
+    "shardulm94.trailing-spaces",
+    "vscode-icons-team.vscode-icons",
+    "mosapride.zenkaku",
+    "esbenp.prettier-vscode",
+    "oderwat.indent-rainbow"
+  ]
+}
