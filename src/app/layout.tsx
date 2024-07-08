@@ -1,5 +1,5 @@
 import { Noto_Sans_JP } from "next/font/google";
-import "./globals.css";
+import "./globals.scss";
 
 const defaultUrl = process.env.VERCEL_URL !== undefined ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
 
@@ -17,9 +17,7 @@ const notoSansJP = Noto_Sans_JP({
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
         <html className={notoSansJP.className} lang="ja">
-            <body>
-                <main>{children}</main>
-            </body>
+            <body>{children}</body>
         </html>
     );
 }
