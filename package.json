@@ -15,7 +15,7 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "aspida": "^1.14.0",
-    "autoprefixer": "10.4.17",
+    "autoprefixer": "10.4.19",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "consola": "^3.2.3",
