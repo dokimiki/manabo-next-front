@@ -1,9 +1,9 @@
 {
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
+        "dev": "bun run next dev",
+        "build": "bun run next build",
+        "start": "bun run next start",
         "prepare": "bun run husky"
     },
     "dependencies": {
