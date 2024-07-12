@@ -17,7 +17,7 @@ const compat = new FlatCompat({
 });
 
 export default [
-    ...fixupConfigRules(compat.extends("airbnb", "airbnb-typescript", "standard-with-typescript", "plugin:react/recommended", "prettier")),
+    ...fixupConfigRules(compat.extends("standard-with-typescript", "plugin:react/recommended", "prettier")),
     {
         ignores: [
             "**/*.js",
