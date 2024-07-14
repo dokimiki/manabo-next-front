@@ -4,7 +4,6 @@ import aspida, { HTTPError, type FetchConfig } from "@aspida/fetch";
 import { type AspidaClient } from "aspida";
 import { useEffect, useState } from "react";
 import api from "@/src/api/$api";
-import { fetchCrumbedCookie, storeCrumbedCookie } from "@/src/libs/authInfo";
 
 export default function Page(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -21,7 +20,7 @@ export default function Page(): JSX.Element {
 
     useEffect(() => {
         (async () => {
-            const crumbedCookie = await fetchCrumbedCookie();
+            const crumbedCookie = localStorage.getItem("manato:crumbed_cookie");
 
             apiClient.v1.manabo.proxy
                 .$post({
@@ -31,8 +30,8 @@ export default function Page(): JSX.Element {
                         crumbed_cookie: crumbedCookie ?? undefined,
                     },
                 })
-                .then(async (res) => {
-                    await storeCrumbedCookie(`${res.crumbed_cookie}`);
+                .then((res) => {
+                    localStorage.setItem("manato:crumbed_cookie", `${res.crumbed_cookie}`);
                     const n = extractUsernameFromDOM(`${res.body}`);
                     setUserName(n);
                 })

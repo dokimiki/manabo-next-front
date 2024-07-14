@@ -10,7 +10,6 @@ import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import api from "@/src/api/$api";
-import { storeCrumbedCookie, setLoginState } from "@/src/libs/authInfo";
 
 export default function Login(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -39,8 +38,7 @@ export default function Login(): JSX.Element {
                 // ログイン成功時の処理
                 consola.success("ログインに成功しました");
 
-                await storeCrumbedCookie(`${res.crumbed_cookie}`);
-                await setLoginState(true);
+                localStorage.setItem("manato:crumbed_cookie", `${res.crumbed_cookie}`);
 
                 router.push("/manato");
             })
