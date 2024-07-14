@@ -5,6 +5,7 @@ import { Box } from "@radix-ui/themes";
 import { type AspidaClient } from "aspida";
 import { consola } from "consola/browser";
 import DOMPurify from "isomorphic-dompurify";
+import { useRouter } from "next/navigation";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
@@ -13,6 +14,7 @@ import api from "@/src/api/$api";
 export default function Login(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const apiClient = api(aspida(fetch, { throwHttpErrors: true, mode: "cors" }) as AspidaClient<FetchConfig>);
+    const router = useRouter();
 
     const [isSending, setIsSending] = useState<boolean>(false);
     const [loginError, setLoginError] = useState<string>("");
@@ -35,6 +37,7 @@ export default function Login(): JSX.Element {
             .then(() => {
                 // ログイン成功時の処理
                 consola.success("ログインに成功しました");
+                router.push("/manato");
             })
             .catch(async (e) => {
                 // ログイン失敗時の処理
