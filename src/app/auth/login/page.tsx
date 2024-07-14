@@ -1,7 +1,8 @@
 "use client";
 
-import aspida, { HTTPError } from "@aspida/fetch";
+import aspida, { type FetchConfig, HTTPError } from "@aspida/fetch";
 import { Box } from "@radix-ui/themes";
+import { type AspidaClient } from "aspida";
 import { consola } from "consola/browser";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useState } from "react";
@@ -9,7 +10,8 @@ import LoginForm from "./LoginForm";
 import api from "@/src/api/$api";
 
 export default function Login(): JSX.Element {
-    const apiClient = api(aspida(fetch, { throwHttpErrors: true, mode: "cors" }));
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const apiClient = api(aspida(fetch, { throwHttpErrors: true, mode: "cors" }) as AspidaClient<FetchConfig>);
 
     const [isSending, setIsSending] = useState<boolean>(false);
     const [loginError, setLoginError] = useState<string>("");
