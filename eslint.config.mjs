@@ -17,7 +17,7 @@ const compat = new FlatCompat({
 });
 
 export default [
-    ...fixupConfigRules(compat.extends("standard-with-typescript", "plugin:react/recommended", "prettier")),
+    ...fixupConfigRules(compat.extends("airbnb", "airbnb-typescript", "standard-with-typescript", "plugin:react/recommended", "prettier")),
     {
         ignores: [
             "**/*.js",
@@ -26,6 +26,7 @@ export default [
             "build/*",
             "public/*",
             "node_modules/*",
+            "src/api/*",
             "eslint.config.mjs",
             "next-env.d.ts",
             "next.config.js",

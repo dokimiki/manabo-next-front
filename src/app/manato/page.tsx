@@ -1,4 +1,4 @@
-export default async function Page(): Promise<JSX.Element> {
+export default function Page(): JSX.Element {
     return (
         <div>
             <h1>Page</h1>

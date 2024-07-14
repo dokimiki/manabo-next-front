@@ -1,23 +1,31 @@
+import { Reset, Theme } from "@radix-ui/themes";
 import { Noto_Sans_JP } from "next/font/google";
+import "@radix-ui/themes/styles.css";
 import "./globals.scss";
 
 const defaultUrl = process.env.VERCEL_URL !== undefined ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const metadata = {
     metadataBase: new URL(defaultUrl),
-    title: "Next.js and Supabase Starter Kit",
-    description: "The fastest way to build apps with Next.js and Supabase",
+    title: "manato",
+    description: "中京大学のポータルサイト、Manaboの非公式クライアントです。",
 };
 
 const notoSansJP = Noto_Sans_JP({
     subsets: ["latin"],
-    variable: "--font-noto-sans-jp",
+    variable: "--font-inter",
+    display: "swap",
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
         <html className={notoSansJP.className} lang="ja">
-            <body>{children}</body>
+            <body>
+                <Reset>
+                    <Theme>{children}</Theme>
+                </Reset>
+            </body>
         </html>
     );
 }

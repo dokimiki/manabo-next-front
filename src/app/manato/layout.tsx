@@ -1,4 +1,4 @@
-export default async function ManatoLayout({ children }: { children: React.ReactNode }): Promise<JSX.Element> {
+export default function ManatoLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
         <>
             <header>header</header>
