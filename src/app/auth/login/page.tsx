@@ -34,9 +34,12 @@ export default function Login(): JSX.Element {
                 },
                 config: {},
             })
-            .then(() => {
+            .then(async (res) => {
                 // ログイン成功時の処理
                 consola.success("ログインに成功しました");
+
+                localStorage.setItem("manato:crumbed_cookie", `${res.crumbed_cookie}`);
+
                 router.push("/manato");
             })
             .catch(async (e) => {
@@ -48,6 +51,9 @@ export default function Login(): JSX.Element {
                     if (e.response.status === 401) {
                         // 認証エラー
                         setLoginError("学籍番号かパスワードが間違っているみたい...<br />入力しなおしてみてほしいな！");
+                    } else if (e.response.status === 500 && errorMessage === "manabo is under maintenance") {
+                        // メンテナンス中
+                        setLoginError("manabo本体がメンテナンス中だよ...<br />一晩待ってからログインしてほしいな！");
                     } else {
                         // その他のエラー
                         setLoginError(
