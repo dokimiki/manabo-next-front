@@ -1,8 +1,76 @@
-export default async function Login(): Promise<JSX.Element> {
+"use client";
+
+import aspida, { type FetchConfig, HTTPError } from "@aspida/fetch";
+import { Box } from "@radix-ui/themes";
+import { type AspidaClient } from "aspida";
+import { consola } from "consola/browser";
+import DOMPurify from "isomorphic-dompurify";
+import { useRouter } from "next/navigation";
+import { enqueueSnackbar, SnackbarProvider } from "notistack";
+import { useState } from "react";
+import LoginForm from "./LoginForm";
+import api from "@/src/api/$api";
+
+export default function Login(): JSX.Element {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const apiClient = api(aspida(fetch, { throwHttpErrors: true, mode: "cors" }) as AspidaClient<FetchConfig>);
+    const router = useRouter();
+
+    const [isSending, setIsSending] = useState<boolean>(false);
+    const [loginError, setLoginError] = useState<string>("");
+
+    const handleAction = (formData: FormData): void => {
+        setIsSending(true);
+
+        const username = formData.get("username");
+        const password = formData.get("password");
+
+        consola.info("ログインAPIを呼び出しています...");
+        apiClient.v1.auth.login
+            .$post({
+                body: {
+                    username: username as string,
+                    password: password as string,
+                },
+                config: {},
+            })
+            .then(() => {
+                // ログイン成功時の処理
+                consola.success("ログインに成功しました");
+                router.push("/manato");
+            })
+            .catch(async (e) => {
+                // ログイン失敗時の処理
+                enqueueSnackbar("ログインに失敗しちゃった...", { variant: "error" });
+                if (e instanceof HTTPError) {
+                    const errorMessage = `${(await e.response.json()).message}`;
+                    consola.error("ログインに失敗しました:", errorMessage);
+                    if (e.response.status === 401) {
+                        // 認証エラー
+                        setLoginError("学籍番号かパスワードが間違っているみたい...<br />入力しなおしてみてほしいな！");
+                    } else {
+                        // その他のエラー
+                        setLoginError(
+                            `あれれ？難しい問題が起きたみたい...<br />この画面のスクリーンショットをサイトの管理者におくってほしいな...<br />Status: ${e.response.status}<br />Message: ${DOMPurify.sanitize(errorMessage)}`,
+                        );
+                    }
+                } else {
+                    const errorMessage = `${e}`;
+                    consola.error("API呼び出しに失敗しました:", errorMessage);
+                    setLoginError(
+                        `あれれ？難しい問題が起きたみたい...<br />この画面のスクリーンショットをサイトの管理者におくってほしいな...<br />Message: ${DOMPurify.sanitize(errorMessage)}`,
+                    );
+                }
+            })
+            .finally(() => {
+                setIsSending(false);
+            });
+    };
+
     return (
-        <div>
-            <h1>Login</h1>
-            <p>Log in to your account</p>
-        </div>
+        <Box className="w-full h-screen flex justify-center items-center">
+            <SnackbarProvider />
+            <LoginForm handleAction={handleAction} isSending={isSending} loginError={loginError} />
+        </Box>
     );
 }
