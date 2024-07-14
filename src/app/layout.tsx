@@ -2,6 +2,7 @@ import { Reset, Theme } from "@radix-ui/themes";
 import { Noto_Sans_JP } from "next/font/google";
 import "@radix-ui/themes/styles.css";
 import "./globals.scss";
+import { Suspense } from "react";
 import GoogleAnalytics from "@/src/components/GoogleAnalytics/GoogleAnalytics";
 
 const defaultUrl = process.env.VERCEL_URL !== undefined ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
@@ -22,14 +23,16 @@ const notoSansJP = Noto_Sans_JP({
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
         <html className={notoSansJP.className} lang="ja">
-            <head>
-                <GoogleAnalytics />
-            </head>
-            <body>
-                <Reset>
-                    <Theme>{children}</Theme>
-                </Reset>
-            </body>
+            <Suspense>
+                <head>
+                    <GoogleAnalytics />
+                </head>
+                <body>
+                    <Reset>
+                        <Theme>{children}</Theme>
+                    </Reset>
+                </body>
+            </Suspense>
         </html>
     );
 }
