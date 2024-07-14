@@ -10,6 +10,7 @@ import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import api from "@/src/api/$api";
+import { storeCrumbedCookie, setLoginState } from "@/src/libs/authInfo";
 
 export default function Login(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -34,9 +35,13 @@ export default function Login(): JSX.Element {
                 },
                 config: {},
             })
-            .then(() => {
+            .then(async (res) => {
                 // ログイン成功時の処理
                 consola.success("ログインに成功しました");
+
+                await storeCrumbedCookie(`${res.crumbed_cookie}`);
+                await setLoginState(true);
+
                 router.push("/manato");
             })
             .catch(async (e) => {
@@ -48,6 +53,9 @@ export default function Login(): JSX.Element {
                     if (e.response.status === 401) {
                         // 認証エラー
                         setLoginError("学籍番号かパスワードが間違っているみたい...<br />入力しなおしてみてほしいな！");
+                    } else if (e.response.status === 500 && errorMessage === "manabo is under maintenance") {
+                        // メンテナンス中
+                        setLoginError("manabo本体がメンテナンス中だよ...<br />一晩待ってからログインしてほしいな！");
                     } else {
                         // その他のエラー
                         setLoginError(
