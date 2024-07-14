@@ -2,23 +2,24 @@ name: AI Code Reviewer
 
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
+    types: [opened, synchronize]
     branches:
       - main
-permissions: write-all
-jobs:
-  review:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
 
-      - name: AI Code Reviewer
-        uses: PeterDaveHello/ai-codereviewer@support-gpt-4o
+jobs:
+  code_review_job:
+    runs-on: ubuntu-latest
+    name: ChatGPT Code Review
+    steps:
+      - name: GenAI Code Review
+        uses: cirolini/genai-code-review@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_API_MODEL: "gpt-4o" # Optional: defaults to "gpt-4"
-          exclude: "**/*.json, **/*.md, **/*.env*, **/*.lockb, **/*.yml, **/*.yaml, **/*.jpg, **/*.jpeg, **/*.png, **/*.svg, **/*.ico, **/*.gif, **/*.webp" # Optional: exclude patterns separated by commas
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_pr_id: ${{ github.event.number }}
+          openai_model: "gpt-3.5-turbo" # optional
+          openai_temperature: 0.5 # optional
+          openai_max_tokens: 4096 # optional
+          mode: files # files or patch
+          language: ja # optional, default is 'en'
+          custom_prompt: "" # optional
