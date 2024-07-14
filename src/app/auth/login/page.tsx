@@ -4,6 +4,7 @@ import aspida, { type FetchConfig, HTTPError } from "@aspida/fetch";
 import { Box } from "@radix-ui/themes";
 import { type AspidaClient } from "aspida";
 import { consola } from "consola/browser";
+import DOMPurify from "isomorphic-dompurify";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
@@ -39,7 +40,7 @@ export default function Login(): JSX.Element {
                 // ログイン失敗時の処理
                 enqueueSnackbar("ログインに失敗しちゃった...", { variant: "error" });
                 if (e instanceof HTTPError) {
-                    const errorMessage = (await e.response.json()).message;
+                    const errorMessage = `${(await e.response.json()).message}`;
                     consola.error("ログインに失敗しました:", errorMessage);
                     if (e.response.status === 401) {
                         // 認証エラー
@@ -47,13 +48,14 @@ export default function Login(): JSX.Element {
                     } else {
                         // その他のエラー
                         setLoginError(
-                            `あれれ？難しい問題が起きたみたい...<br />この画面のスクリーンショットをサイトの管理者におくってほしいな...<br />Status: ${e.response.status}<br />Message: ${errorMessage}`,
+                            `あれれ？難しい問題が起きたみたい...<br />この画面のスクリーンショットをサイトの管理者におくってほしいな...<br />Status: ${e.response.status}<br />Message: ${DOMPurify.sanitize(errorMessage)}`,
                         );
                     }
                 } else {
-                    consola.error("API呼び出しに失敗しました:", e);
+                    const errorMessage = `${e}`;
+                    consola.error("API呼び出しに失敗しました:", errorMessage);
                     setLoginError(
-                        `あれれ？難しい問題が起きたみたい...<br />この画面のスクリーンショットをサイトの管理者におくってほしいな...<br />Message: ${e}`,
+                        `あれれ？難しい問題が起きたみたい...<br />この画面のスクリーンショットをサイトの管理者におくってほしいな...<br />Message: ${DOMPurify.sanitize(errorMessage)}`,
                     );
                 }
             })
