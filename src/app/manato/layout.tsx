@@ -1,9 +1,12 @@
+import Footer from "./Footer";
+import Header from "./Header";
+
 export default function ManatoLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
         <>
-            <header>header</header>
+            <Header />
             <main>{children}</main>
-            <footer>footer</footer>
+            <Footer />
         </>
     );
 }
