@@ -14,7 +14,7 @@ export default function Page(): JSX.Element {
     const extractUsernameFromDOM = (dom: string): string => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(dom, "text/html");
-        const name = doc.querySelector("li .user-icon")?.textContent ?? "";
+        const name = doc.querySelector(".user-icon")?.textContent ?? "";
         return name;
     };
 
