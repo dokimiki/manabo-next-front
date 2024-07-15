@@ -1,15 +1,25 @@
 "use client";
 
-import aspida, { HTTPError, type FetchConfig } from "@aspida/fetch";
+import aspida, { type FetchConfig } from "@aspida/fetch";
 import { type AspidaClient } from "aspida";
+import consola from "consola";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import api from "@/src/api/$api";
 
 export default function Page(): JSX.Element {
+    const router = useRouter();
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const apiClient = api(aspida(fetch, { throwHttpErrors: false, mode: "cors" }) as AspidaClient<FetchConfig>);
 
     const [userName, setUserName] = useState<string>("");
+
+    const isLogouted = (dom: string): boolean => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(dom, "text/html");
+        const loginForm = doc.querySelector(".login");
+        return loginForm !== null;
+    };
 
     const extractUsernameFromDOM = (dom: string): string => {
         const parser = new DOMParser();
@@ -32,17 +42,17 @@ export default function Page(): JSX.Element {
                 })
                 .then((res) => {
                     localStorage.setItem("manato:crumbed_cookie", `${res.crumbed_cookie}`);
+                    if (isLogouted(`${res.body}`)) {
+                        consola.info("ログアウトされました");
+                        router.push("/auth/login");
+                        return;
+                    }
                     const n = extractUsernameFromDOM(`${res.body}`);
                     setUserName(n);
                 })
                 .catch(async (e) => {
-                    if (e instanceof HTTPError) {
-                        // エラー処理
-                    } else {
-                        // エラー処理
-                    }
-                })
-                .finally(() => {});
+                    consola.error(e);
+                });
         })()
             .then(() => {})
             .catch(() => {});
