@@ -43,7 +43,7 @@ export default function Login(): JSX.Element {
                     consola.error(e);
                 });
         }
-    });
+    }, [apiClient, router, localStorage]);
 
     const handleAction = (formData: FormData): void => {
         setIsSending(true);

@@ -50,7 +50,7 @@ export default function Page(): JSX.Element {
         })()
             .then(() => {})
             .catch(() => {});
-    });
+    }, [apiClient, router, localStorage, setUserName]);
 
     return (
         <div>
