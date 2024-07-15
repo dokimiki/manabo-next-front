@@ -5,7 +5,7 @@ export default function Footer(): JSX.Element {
     return (
         <footer>
             <Box className="w-screen">
-                <Flex align="center" gap="1" justify="center" mt="2">
+                <Flex align="center" gap="1" justify="center" mb="1" mt="2">
                     <Text color="gray" size="1">
                         Made with
                     </Text>
