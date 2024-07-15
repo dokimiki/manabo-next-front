@@ -7,9 +7,10 @@ import { consola } from "consola/browser";
 import DOMPurify from "isomorphic-dompurify";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginForm from "./LoginForm";
 import api from "@/src/api/$api";
+import { isLoggedIn } from "@/src/libs/auth";
 
 export default function Login(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -18,6 +19,31 @@ export default function Login(): JSX.Element {
 
     const [isSending, setIsSending] = useState<boolean>(false);
     const [loginError, setLoginError] = useState<string>("");
+
+    /* すでにログインしているかの判定 */
+    useEffect(() => {
+        const crumbedCookie = localStorage.getItem("manato:crumbed_cookie");
+        if (crumbedCookie !== null) {
+            apiClient.v1.manabo.proxy
+                .$post({
+                    body: {
+                        path: "/",
+                        method: "GET",
+                        crumbed_cookie: crumbedCookie,
+                    },
+                })
+                .then((res) => {
+                    localStorage.setItem("manato:crumbed_cookie", `${res.crumbed_cookie}`);
+                    if (isLoggedIn(`${res.body}`)) {
+                        consola.success("ログインされました");
+                        router.push("/manato");
+                    }
+                })
+                .catch(async (e) => {
+                    consola.error(e);
+                });
+        }
+    }, [apiClient, router, localStorage]);
 
     const handleAction = (formData: FormData): void => {
         setIsSending(true);
