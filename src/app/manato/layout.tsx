@@ -11,8 +11,8 @@ export default function ManatoLayout({ children }: { children: React.ReactNode }
         <>
             <Header hasNewMail />
             <main>{children}</main>
-            <FooterMenu router={router} selectedIcon="home" />
             <Footer />
+            <FooterMenu router={router} selectedIcon="home" />
         </>
     );
 }

@@ -49,34 +49,37 @@ export default function FooterMenu({
     }
 
     return (
-        <Box bottom="0" position="fixed" width="100%">
-            <Separator size="4" />
-            <Flex m="2" style={{ justifyContent: "space-around" }}>
-                <IconButton
-                    onClick={() => {
-                        handleButtonClick("bus");
-                    }}
-                    variant="ghost"
-                >
-                    {busIcon}
-                </IconButton>
-                <IconButton
-                    onClick={() => {
-                        handleButtonClick("home");
-                    }}
-                    variant="ghost"
-                >
-                    {homeIcon}
-                </IconButton>
-                <IconButton
-                    onClick={() => {
-                        handleButtonClick("setting");
-                    }}
-                    variant="ghost"
-                >
-                    {settingIcon}
-                </IconButton>
-            </Flex>
-        </Box>
+        <>
+            <div style={{ height: "70px" }} />
+            <Box bottom="0" className="glass-background" height="55px" position="fixed" width="100%">
+                <Separator size="4" />
+                <Flex m="2" style={{ justifyContent: "space-around" }}>
+                    <IconButton
+                        onClick={() => {
+                            handleButtonClick("bus");
+                        }}
+                        variant="ghost"
+                    >
+                        {busIcon}
+                    </IconButton>
+                    <IconButton
+                        onClick={() => {
+                            handleButtonClick("home");
+                        }}
+                        variant="ghost"
+                    >
+                        {homeIcon}
+                    </IconButton>
+                    <IconButton
+                        onClick={() => {
+                            handleButtonClick("setting");
+                        }}
+                        variant="ghost"
+                    >
+                        {settingIcon}
+                    </IconButton>
+                </Flex>
+            </Box>
+        </>
     );
 }
