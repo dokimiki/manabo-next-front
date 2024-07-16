@@ -1,7 +1,7 @@
 import { EnvelopeOpenIcon } from "@radix-ui/react-icons";
 import { Box, Flex, IconButton, Separator, Text } from "@radix-ui/themes";
 
-import "./header.scss";
+import "./header.module.scss";
 
 export default function Header({ hasNewMail }: { hasNewMail: boolean }): JSX.Element {
     return (
