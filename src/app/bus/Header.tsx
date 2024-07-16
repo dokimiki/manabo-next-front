@@ -1,6 +1,6 @@
 import { Box, Flex, Separator, Text } from "@radix-ui/themes";
 
-import "./header.module.scss";
+import "./header.scss";
 
 export default function Header(): JSX.Element {
     return (

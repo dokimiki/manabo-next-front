@@ -1,7 +1,7 @@
 import { HeartFilledIcon } from "@radix-ui/react-icons";
 import { Box, Flex, Text } from "@radix-ui/themes";
 
-import "./footer.module.scss";
+import "./footer.scss";
 
 export default function Footer(): JSX.Element {
     return (
