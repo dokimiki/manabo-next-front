@@ -1,0 +1,22 @@
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/gray.css";
+
+.footer-text {
+    .light & {
+        color: var(--gray-11);
+    }
+
+    .dark & {
+        color: var(--gray-10);
+    }
+}
+
+.footer-love-icon {
+    .light & {
+        color: var(--red-9);
+    }
+
+    .dark & {
+        color: var(--red-8);
+    }
+}

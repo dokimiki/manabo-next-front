@@ -1,0 +1,15 @@
+@import "@radix-ui/colors/red.css";
+
+.mail-button-icon.has-new-mail {
+    &::after {
+        content: ".";
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        color: #0000;
+        width: 10px;
+        height: 10px;
+        background: var(--red-9);
+        border-radius: 50%;
+    }
+}
