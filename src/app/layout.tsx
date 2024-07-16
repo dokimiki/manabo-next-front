@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
                 </head>
                 <body>
                     <Reset>
-                        <Theme>{children}</Theme>
+                        <Theme appearance="light">{children}</Theme>
                     </Reset>
                 </body>
             </Suspense>
