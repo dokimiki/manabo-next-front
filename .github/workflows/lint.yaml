@@ -21,8 +21,8 @@ jobs:
                   fetch-depth: 0
 
             # Get bun
-            - name: Get bun
-              uses: oven-sh/setup-bun@v2
+            - name: Install modules
+              run: yarn
 
             # Lint
             - run: eslint
