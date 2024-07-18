@@ -1,0 +1,16 @@
+name: Create Issue Branch 🌱
+on:
+    issues:
+        types: [assigned]
+
+jobs:
+    create_issue_branch_job:
+        name: Creating Branch 🪴
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            # Create Issue Branch
+            - name: Create Issue Branch
+              uses: robvanderleek/create-issue-branch@main
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

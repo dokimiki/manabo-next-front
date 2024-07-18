@@ -1,0 +1,135 @@
+name: フォーム入力
+description: Issueをフォーム入力で作る際に使います。マークダウンよりもユーザーフレンドリーなのが特徴です。
+
+body:
+    - type: dropdown
+      id: issue_types
+      attributes:
+          label: Issueの種類
+          description: >
+              このIssueで扱う内容の種類を選んでください。
+              分からない場合や、どれにも当てはまらない場合は「指定なし」を選んでください。
+          options:
+              - ✨ 新機能
+              - 🐛 バグ
+              - 👍 改善案
+              - 💬 質問
+              - 📝 ドキュメント
+              - 🗣 話し合い
+              - 指定なし
+      validations:
+          required: true
+
+    - type: dropdown
+      id: priority
+      attributes:
+          label: 優先度
+          description: >
+              このIssueがゲーム開発をする上での重要度を選んでください。
+              分からない場合や、どれにも当てはまらない場合は「指定なし」を選んでください。
+          options:
+              - 🏔 高
+              - 🏕 中
+              - 🏝 低
+              - 指定なし
+      validations:
+          required: true
+
+    - type: dropdown
+      id: difficulty
+      attributes:
+          label: Issue修正にかかる変更の大きさ
+          description: >
+              このIssueを修正するのに必要そうな作業量の多さを選んでください。
+              分からない場合や、どれにも当てはまらない場合は「指定なし」を選んでください。
+          options:
+              - 🦔 極小
+              - 🐇 小
+              - 🐂 中
+              - 🦑 大
+              - 🐋 クソデカ
+              - 指定なし
+      validations:
+          required: true
+
+    - type: dropdown
+      id: types
+      attributes:
+          label: どの機能に影響があるか(複数選択可)
+          multiple: true
+          description: >
+              ゲーム上でどの機能に関わるか、編集しなければいけない項目をすべて選んでください。
+          options:
+              - 🏢 building
+              - 🐺 Enemy
+              - 🧒 Human
+              - 🎁 Item
+              - 🎲 Object
+              - 🥳 Player
+              - 🪄 UI
+              - 👑 エフェクト
+              - 🌏 ワールド
+              - 👩‍🏫 学校
+              - 💢 攻撃
+              - 🔊 音
+              - 📜 設定
+              - 🕹 操作
+
+    - type: textarea
+      id: changes
+      attributes:
+          label: 変更内容
+          description: >
+              なにを何を追加、変更したいか1、2行程度で書いてください。
+              例:) プレイヤーの移動速度を上げたい
+      validations:
+          required: true
+
+    - type: textarea
+      id: purpose
+      attributes:
+          label: 目的
+          description: >
+              なぜそれをする必要があるのかを書いてください。
+              例:) プレイヤーが移動しやすくなるため
+      validations:
+          required: true
+
+    - type: textarea
+      id: now_behavior
+      attributes:
+          label: 今の動作、実装方法
+          description: >
+              **機能に変更がある場合のみ**、今はどのように動いているかを書いてください。
+              例:) プレイヤーはWASDで移動できる。移動速度は1秒に1.0m。
+
+    - type: textarea
+      id: how_to
+      attributes:
+          label: 実装方法
+          description: >
+              **考えている場合のみ**、どのように実装するかを書いてください。
+              例:) プレイヤーの移動速度を1.5倍にする。
+
+    - type: textarea
+      id: import_point
+      attributes:
+          label: 注意点
+          description: >
+              **ある場合のみ**、実装時に気をつけなければいけなそうな点はなにかを書いてください。
+              例:) プレイヤーの移動速度を上げると、貫通する壁があるのでそれを直す必要がある。
+
+    - type: textarea
+      id: dependant_issues
+      attributes:
+          label: 依存するIssue
+          description: >
+              **ある場合のみ**、作業を始めるためにはどのIssueが終わっている必要があるかを書いてください。
+              例:) `- [ ] #231`
+
+    - type: textarea
+      id: other
+      attributes:
+          label: その他、添付画像、参考URL等
+          description: >
+              その他に書きたいことや、参考になりそうなものがあれば書いてください。
