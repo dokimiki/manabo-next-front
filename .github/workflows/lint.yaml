@@ -25,5 +25,4 @@ jobs:
               uses: oven-sh/setup-bun@v2
 
             # Lint
-            - run: bun run prettier --write src
-            - run: bun run eslint
+            - run: eslint
