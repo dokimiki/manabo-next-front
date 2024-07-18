@@ -75,6 +75,8 @@ export default [
             "import/prefer-default-export": "off",
             "import/extensions": "off",
             "import/no-unresolved": "off",
+            "no-restricted-syntax": "off",
+            "no-plusplus": "off",
 
             "import/order": [
                 "error",

@@ -21,9 +21,8 @@ jobs:
                   fetch-depth: 0
 
             # Get bun
-            - name: Get bun
-              uses: oven-sh/setup-bun@v2
+            - name: Install modules
+              run: npm
 
             # Lint
-            - run: bun run prettier --write src
-            - run: bun run eslint
+            - run: eslint

@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import api from "@/src/api/$api";
 import { ClassCard } from "@/src/components/ClassCard";
 import { isLoggedIn } from "@/src/libs/auth";
+import { getClassList } from "@/src/libs/manabo";
+import { type ClassInfo } from "@/src/types/common";
 
 export default function Page(): JSX.Element {
     const router = useRouter();
@@ -17,6 +19,8 @@ export default function Page(): JSX.Element {
 
     const [userName, setUserName] = useState<string>("");
     console.log(userName);
+
+    const [classes, setClasses] = useState<ClassInfo[]>([]);
 
     const [nowOpenClass, setNowOpenClass] = useState<string>("");
 
@@ -28,7 +32,9 @@ export default function Page(): JSX.Element {
     };
 
     useEffect(() => {
+        
         (async () => {
+            setClasses(await getClassList());
             const crumbedCookie = localStorage.getItem("manato:crumbed_cookie");
 
             apiClient.v1.manabo.proxy
@@ -79,32 +85,21 @@ export default function Page(): JSX.Element {
 
                     <Box pt="3">
                         <Tabs.Content value="account">
-                            <ClassCard
-                                dayOfWeek="mon"
-                                period={1}
-                                teacher="林　淑蕙"
-                                title="インターミディエイト英語コミュニケーションＡ"
-                                top
-                            />
-                            <ClassCard dayOfWeek="mon" period={2} teacher="村田" title="C言語" />
-                            <ClassCard dayOfWeek="mon" period={3} teacher="目加田" title="代数学" />
+                            {classes.filter((e: ClassInfo): boolean=>e.dayOfWeek===(new Date).getDay()).map((e: ClassInfo): JSX.Element =>
+                                (
+                                    <ClassCard key={e.title} dayOfWeek={e.dayOfWeek} period={e.period+1} teacher={e.teacher} title={e.title} />
+                                ))}
                         </Tabs.Content>
 
                         <Tabs.Content value="documents">
-                            <ClassCard dayOfWeek="wed" period={1} teacher="村田" title="キャリアデザイン" top />
+                            <ClassCard dayOfWeek={2} period={1} teacher="村田" title="キャリアデザイン" top />
                         </Tabs.Content>
 
                         <Tabs.Content value="settings">
-                            <ClassCard
-                                dayOfWeek="mon"
-                                period={1}
-                                teacher="林　淑蕙"
-                                title="インターミディエイト英語コミュニケーションＡ"
-                                top
-                            />
-                            <ClassCard dayOfWeek="mon" period={2} teacher="村田" title="C言語" />
-                            <ClassCard dayOfWeek="mon" period={3} teacher="目加田" title="代数学" />
-                            <ClassCard dayOfWeek="wed" period={1} teacher="村田" title="キャリアデザイン" />
+                            {classes.map((e: ClassInfo): JSX.Element =>(
+                                    <ClassCard key={e.title} dayOfWeek={e.dayOfWeek} period={e.period+1} teacher={e.teacher} title={e.title}/>
+                                )
+                            )}
                         </Tabs.Content>
                     </Box>
                 </Tabs.Root>
@@ -119,7 +114,7 @@ function NowOpenClass({ openClassName }: { openClassName: string }): JSX.Element
             <Text size="4" weight="bold">
                 受けている授業
             </Text>
-            <ClassCard dayOfWeek="mon" period={1} teacher="林　淑蕙" title={openClassName} top />
+            <ClassCard dayOfWeek={1} period={1} teacher="林　淑蕙" title={openClassName} top />
         </Box>
     );
 }
