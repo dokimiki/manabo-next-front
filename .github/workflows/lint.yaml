@@ -22,7 +22,7 @@ jobs:
 
             # Get bun
             - name: Install modules
-              run: yarn
+              run: npm
 
             # Lint
             - run: eslint
