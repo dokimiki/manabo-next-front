@@ -12,7 +12,7 @@ export function ClassCard({
 }: {
     title: string;
     teacher: string;
-    dayOfWeek: DayOfWeek;
+    dayOfWeek: number;
     period: number;
     top?: boolean;
 }): JSX.Element {
