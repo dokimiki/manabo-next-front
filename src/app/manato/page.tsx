@@ -85,11 +85,10 @@ export default function Page(): JSX.Element {
 
                     <Box pt="3">
                         <Tabs.Content value="account">
-                            {classes.filter((e: ClassInfo): boolean=>e.dayOfWeek===(new Date).getDay()).map((e: ClassInfo): JSX.Element => {
-                                return (
-                                    <ClassCard dayOfWeek={e.dayOfWeek} period={e.period+1} teacher={e.teacher} title={e.title}></ClassCard>
-                                )
-                            })}
+                            {classes.filter((e: ClassInfo): boolean=>e.dayOfWeek===(new Date).getDay()).map((e: ClassInfo): JSX.Element =>
+                                (
+                                    <ClassCard key={e.title} dayOfWeek={e.dayOfWeek} period={e.period+1} teacher={e.teacher} title={e.title} />
+                                ))}
                         </Tabs.Content>
 
                         <Tabs.Content value="documents">
@@ -97,11 +96,10 @@ export default function Page(): JSX.Element {
                         </Tabs.Content>
 
                         <Tabs.Content value="settings">
-                            {classes.map((e) => {
-                                return (
-                                    <ClassCard dayOfWeek={e.dayOfWeek} period={e.period+1} teacher={e.teacher} title={e.title}></ClassCard>
+                            {classes.map((e: ClassInfo): JSX.Element =>(
+                                    <ClassCard key={e.title} dayOfWeek={e.dayOfWeek} period={e.period+1} teacher={e.teacher} title={e.title}/>
                                 )
-                            })}
+                            )}
                         </Tabs.Content>
                     </Box>
                 </Tabs.Root>

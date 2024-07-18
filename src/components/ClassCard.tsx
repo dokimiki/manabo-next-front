@@ -1,7 +1,6 @@
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Box, Separator, Flex, Button, Text } from "@radix-ui/themes";
 import { DOWtoStr } from "@/src/libs/common";
-import { type DayOfWeek } from "@/src/types/common";
 
 export function ClassCard({
     title,
