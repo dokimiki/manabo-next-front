@@ -21,8 +21,24 @@ jobs:
                   fetch-depth: 0
 
             # Get bun
-            - name: Install modules
-              run: npm
+            - name: Install bun
+              uses: oven-sh/setup-bun@v2
 
-            # Lint
-            - run: eslint
+            # node_modules がキャッシュされていれば展開する
+            - name: Cache node modules
+              id: cache-npm
+              uses: actions/cache@v3
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+            # node_modules がキャッシュされてなければ bun i
+            - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+              name: install node_modules
+              run: bun install --frozen-lockfile
+
+            - name: なんかやりたい処理
+              run: bun run eslint
