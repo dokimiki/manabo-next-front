@@ -16,7 +16,7 @@ jobs:
         name: Notify to Discord 📤
         runs-on: ubuntu-latest
         steps:
-            - run: curl -H "Content-Type:application/json" -X POST -d '{"content":"@everyone レビューしてください！\n ${{ github.event.pull_request.html_url }}"}' https://discord.com/api/webhooks/1263459249917268049/sTav6u-mAPbBXbvRu55PVHQ_IxZPPO-aImti9u-pl8JalEmNK2qp6x93Jp_2f1jF8FX1
+            - run: curl -H "Content-Type:application/json" -X POST -d '{"content":"レビューしてください！\n ${{ github.event.pull_request.html_url }}"}' https://discord.com/api/webhooks/1263459249917268049/sTav6u-mAPbBXbvRu55PVHQ_IxZPPO-aImti9u-pl8JalEmNK2qp6x93Jp_2f1jF8FX1
 
     notify_on_error:
         # lintが失敗したときに実行
