@@ -40,5 +40,5 @@ jobs:
               name: install node_modules
               run: bun install --frozen-lockfile
 
-            - name: なんかやりたい処理
+            - name: lint code
               run: bun run eslint
