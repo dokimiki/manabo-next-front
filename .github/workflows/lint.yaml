@@ -38,7 +38,7 @@ jobs:
             # node_modules がキャッシュされてなければ bun i
             - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
               name: install node_modules
-              run: bun install --frozen-lockfile
+              run: bun install # --frozen-lockfileはdependabotで死ぬから廃止
 
             - name: lint code
               run: bun run eslint
